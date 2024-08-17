@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import Brand from "../assets/brand.png";
+
 const Navbar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -12,14 +14,16 @@ const Navbar = () => {
 
     return (
         <StyledNav>
-            <StyledBrand to="/">Blogosphere</StyledBrand>
             <StyledMenu>
                 <StyledMenuItems>
-                    <StyledMenuItem to="/home">Home</StyledMenuItem>
+                    <StyledMenuItem to="/">Home</StyledMenuItem>
                     <StyledMenuItem to="/blogs">Blogs</StyledMenuItem>
                     <StyledMenuItem to="/follow">Follow</StyledMenuItem>
                     <StyledMenuItem to="/account">Account</StyledMenuItem>
                 </StyledMenuItems>
+            <StyledBrand to="/">
+                <img src={Brand} alt="brand image" />
+            </StyledBrand>
             </StyledMenu>
             <StyledDropdown>
                 <StyledButton onClick={toggleDropdown}>Menu</StyledButton>
@@ -38,7 +42,7 @@ export default Navbar;
 
 // Styled Components
 const StyledNav = styled.nav`
-    background-color: #333;
+    height: 8vh;
     padding: 15px;
     width: 100%;
     display: flex;
@@ -47,23 +51,24 @@ const StyledNav = styled.nav`
 `;
 
 const StyledBrand = styled(Link)`
-    font-size: 24px;
-    font-weight: bold;
-    color: #fff;
-    cursor: pointer;
-    text-transform: uppercase;
-    flex: 1;
-    text-decoration: none;
+    
+    width: 30px;
+    height: 30px;
 
-    &:hover {
-        text-decoration: underline;
+    img {
+        width: 100%;
+        height: 100%;
     }
+    
+
 `;
 
 const StyledMenu = styled.div`
     display: flex;
-    justify-content: center;
-    flex: 2;
+    align-items: center;
+    flex: 1;
+    justify-content: space-between;
+    
 `;
 
 const StyledMenuItems = styled.ul`
@@ -75,7 +80,7 @@ const StyledMenuItems = styled.ul`
 
 const StyledMenuItem = styled(Link)`
     margin: 0 20px;
-    color: #fff;
+    color: #000000;
     cursor: pointer;
     text-decoration: none;
     position: relative;
@@ -93,16 +98,14 @@ const StyledDropdown = styled.div`
 `;
 
 const StyledButton = styled.button`
-    background-color: #555;
-    color: #fff;
-    border: none;
+    background-color: transparent;
+    color: #000000;
+    border: 1px solid lightblue;
     padding: 10px 15px;
     cursor: pointer;
     border-radius: 5px;
 
-    &:hover {
-        background-color: #444;
-    }
+
 `;
 
 const StyledDropdownItems = styled.ul`
