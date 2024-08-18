@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { FaLongArrowAltRight } from "react-icons/fa";
+
 import Home1 from "../assets/home-1.jpeg";
 import Home2 from "../assets/home-2.jpeg";
 import Home3 from "../assets/home-3.jpeg";
 import Home4 from "../assets/home-4.jpeg";
 import Home5 from "../assets/home-5.jpeg";
-import Cards from "../components/Cards";
 
+import Cards from "../components/Cards";
+import Testimonials from "../components/Test";
 // welcome to neublog
 function Section1() {
   return (
@@ -68,12 +70,12 @@ function Section3() {
     <C3>
       <div className="top">
         <div className="text">
-        <h1>Featured Blogs</h1>
-        <p>
-          Stay updated with the latest and most popular blog posts <br />from our
-          community. Explore a variety of topics and find your <br />next favorite
-          read.
-        </p>
+          <h1>Featured Blogs</h1>
+          <p>
+            Stay updated with the latest and most popular blog posts <br />
+            from our community. Explore a variety of topics and find your <br />
+            next favorite read.
+          </p>
         </div>
       </div>
       <div className="bottom">
@@ -89,6 +91,7 @@ export default function home() {
       <Section1 />
       <Section2 />
       <Section3 />
+      <Testimonials />
     </div>
   );
 }
@@ -250,5 +253,4 @@ const C3 = styled.div`
       margin: 1rem;
     }
   }
-
 `;
