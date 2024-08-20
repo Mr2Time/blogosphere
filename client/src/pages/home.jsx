@@ -10,6 +10,7 @@ import Home5 from "../assets/home-5.jpeg";
 
 import Cards from "../components/Cards";
 import Testimonials from "../components/Test";
+import Footer from "../components/Footer";
 // welcome to neublog
 function Section1() {
   return (
@@ -92,6 +93,7 @@ export default function home() {
       <Section2 />
       <Section3 />
       <Testimonials />
+      <Footer />
     </div>
   );
 }
