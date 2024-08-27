@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Card1 from "../assets/card1.jpeg";
+import TextEditor from "../components/TextEditor";
 
 
 const AccountPage = () => {
@@ -19,6 +20,9 @@ const AccountPage = () => {
           <p>Likes: 2k</p>
         </div>
       </C1>
+      <C2>
+        <TextEditor />
+      </C2>
     </AccountContainer>
   );
 };
@@ -76,6 +80,18 @@ const C1 = styled.div`
       margin: 0.5rem;
     }
   }
+`;
+
+const C2 = styled.div`
+
+width: 100%;
+height: 50vh;
+background-color: #a6a6a6;
+display: flex;
+justify-content: center;
+align-items: center;
+
+
 `;
 
 export default AccountPage;
