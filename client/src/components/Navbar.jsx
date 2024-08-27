@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
 import Brand from "../assets/brand.png";
 
 const Navbar = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
   return (
     <StyledNav>
       <StyledMenu>
@@ -23,16 +18,13 @@ const Navbar = () => {
         <StyledBrand to="/">
           <img src={Brand} alt="brand image" />
         </StyledBrand>
+        <JoinUs>
+          <Link to="/signup">
+            Join Us
+            <FaLongArrowAltRight />
+          </Link>
+        </JoinUs>
       </StyledMenu>
-      <StyledDropdown>
-        <StyledButton onClick={toggleDropdown}>Menu</StyledButton>
-        {isDropdownOpen && (
-          <StyledDropdownItems>
-            <StyledDropdownItem to="/login">login</StyledDropdownItem>
-            <StyledDropdownItem to="/signup">signup</StyledDropdownItem>
-          </StyledDropdownItems>
-        )}
-      </StyledDropdown>
     </StyledNav>
   );
 };
@@ -85,43 +77,30 @@ const StyledMenuItem = styled(Link)`
   }
 `;
 
-const StyledDropdown = styled.div`
-  position: relative;
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-`;
-
-const StyledButton = styled.button`
-  background-color: transparent;
+const JoinUs = styled.button`
+  padding: 5px 10px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 5px;
   color: #000000;
-  border: 1px solid lightblue;
-  padding: 10px 15px;
   cursor: pointer;
-  border-radius: 5px;
-`;
-
-const StyledDropdownItems = styled.ul`
-  position: absolute;
-  top: 40px;
-  right: 0;
-  background-color: #fff;
-  padding: 10px;
-  list-style: none;
-  margin: 0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  min-width: 150px;
-`;
-
-const StyledDropdownItem = styled(Link)`
-  display: block;
-  padding: 8px 12px;
-  color: #333;
-  text-decoration: none;
-  cursor: pointer;
+  font-weight: bold;
+  box-sizing: border-box;
 
   &:hover {
-    background-color: #f1f1f1;
+    background-color: #f1f1f1; 
+    padding: 10px 15px;
+    border-radius: 20px;
+  }
+
+  a {
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+
+    svg {
+      margin-left: 5px;
+    }
   }
 `;
