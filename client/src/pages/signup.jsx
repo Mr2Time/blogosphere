@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 import { set } from "mongoose";
 
 const Signup = () => {
+  const [loading, setLoading] = useState(false);
   const [create, setCreate] = useState(false);
+
 
 
   const handleSubmit = (values) => {
@@ -66,7 +68,7 @@ const Signup = () => {
 
 const Container = styled.div`
   width: 100%;
-  height: calc(100vh - 8vh);
+  height: 92vh;
 
   background: radial-gradient(
       circle at top left,

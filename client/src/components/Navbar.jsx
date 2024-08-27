@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { logout } from "../reducers/userSlice";
 
 import Brand from "../assets/brand.png";
 
 const Navbar = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <StyledNav>
       <StyledMenu>
@@ -18,12 +24,25 @@ const Navbar = () => {
         <StyledBrand to="/">
           <img src={Brand} alt="brand image" />
         </StyledBrand>
-        <JoinUs>
-          <Link to="/signup">
-            Join Us
-            <FaLongArrowAltRight />
-          </Link>
-        </JoinUs>
+        {
+          // if localStorage has token, show account and logout
+          // else show login and signup
+          localStorage.getItem("token") ? (
+            <JoinUs>
+              <button onClick={() => {
+                dispatch(logout());
+                navigate("/login");
+              }}>
+                logout
+              </button>
+            </JoinUs>
+          ) : (
+            <JoinUs>
+              <Link to="/login">Login</Link>
+              <FaLongArrowAltRight />
+            </JoinUs>
+          )
+        }
       </StyledMenu>
     </StyledNav>
   );

@@ -1,26 +1,88 @@
+import React, { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import styled from "styled-components";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, setAuth } from "../reducers/userSlice";
 
+const Login = () => {
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const auth = useSelector((state) => state.user.auth);
 
+  const handleSubmit = (values) => {
+    axios
+      .post("http://localhost:4000/api/auth", {
+        email: values.email,
+        password: values.password,
+      })
+      .then((res) => {
+        setLoading(true);
+        dispatch(setUser(res.data.user));
+        dispatch(setAuth(true));
+        localStorage.setItem("token", res.data.user.id);
+        console.log(res);
+        navigate("/account");
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-import React, { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import styled from 'styled-components';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+  return (
+    <Container>
+      {!auth ? (
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validate={(values) => {
+            const errors = {};
+            if (!values.email) {
+              errors.email = "Required";
+            }
+            if (!values.password) {
+              errors.password = "Required";
+            }
+            return errors;
+          }}
+          onSubmit={(values) => {
+            handleSubmit(values);
+          }}
+        >
+          <Form>
+            <Field type="email" name="email" placeholder="Email" />
+            <ErrorMessage name="email" component="div" />
+            <Field type="password" name="password" placeholder="Password" />
+            <ErrorMessage name="password" component="div" />
+            <button type="submit">Submit</button>
+            <p>
+              Don't have an account? <Link to="/signup">Sign up</Link>
+            </p>
+          </Form>
+        </Formik>
+      ) : (
+        <h1>Logged in</h1>
+      )}
+    </Container>
+  );
+};
 
 const Container = styled.div`
   width: 100%;
-  height: calc(100vh - 8vh);
+  height: 92vh;
   background: radial-gradient(
-    circle at top left,
-    rgba(44, 19, 185, 0.3),
-    transparent 60%
-  ),
-  radial-gradient(
-    circle at bottom right,
-    rgba(56, 160, 229, 0.46),
-    transparent 60%
-  ),
-  white;
+      circle at top left,
+      rgba(44, 19, 185, 0.3),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(56, 160, 229, 0.46),
+      transparent 60%
+    ),
+    white;
 
   form {
     display: flex;
@@ -65,71 +127,7 @@ const Container = styled.div`
       color: #000000;
       font-weight: bold;
       position: relative;
-      bottom
     }
-
-    
   }
 `;
-
-const Login = () => {
-  const [create, setCreate] = useState(false);
-  const [auth, setAuth] = useState(false);
-
-  const handleSubmit = (values) => {
-    axios
-      .post('http://localhost:4000/api/auth', {
-        email: values.email,
-        password: values.password,
-      })
-      .then((res) => {
-        setAuth(true);
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  return (
-    <Container>
-      {
-        !auth ? (
-          <Formik
-            initialValues={{ email: '', password: '' }}
-            validate={(values) => {
-              const errors = {};
-              if (!values.email) {
-                errors.email = 'Required';
-              }
-              if (!values.password) {
-                errors.password = 'Required';
-              }
-              return errors;
-            }}
-            onSubmit={(values) => {
-              handleSubmit(values);
-            }}
-          >
-            <Form>
-              <Field type="email" name="email" placeholder="Email" />
-              <ErrorMessage name="email" component="div" />
-              <Field type="password" name="password" placeholder="Password" />
-              <ErrorMessage name="password" component="div" />
-              <button type="submit">Submit</button>
-              <p>
-                Don't have an account?{' '}
-                <Link to="/signup">Sign up</Link>
-              </p>
-            </Form>
-          </Formik>
-        ) : (
-          <h1>Logged in</h1>
-        )
-      }
-    </Container>
-    );
-};
-
 export default Login;
-
